@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id              Int              @id @default(autoincrement())
+    email           String           @unique
+    username        String?          @unique
+    password        String?
+    role            Role             @relation(fields: [roleId], references: [id])
+    roleId          Int
+    memberTeams     Team[]           @relation(name: "TeamMembers")
+    managedTeams    Team[]           @relation("TeamManager")
+    taskAssignments TaskAssignment[]
+    createdTasks    Task[]           @relation("TaskCreator")
+}
+
+model Role {
+    id    Int    @id @default(autoincrement())
+    name  String @unique
+    users User[]
+}
+
+model Team {
+    id        Int    @id @default(autoincrement())
+    name      String
+    manager   User   @relation(fields: [managerId], references: [id], name: "TeamManager")
+    managerId Int
+    members   User[] @relation(name: "TeamMembers")
+    tasks     Task[]
+}
+
+model Task {
+    id          Int              @id @default(autoincrement())
+    title       String
+    description String?
+    dueDate     DateTime?
+    team        Team             @relation(fields: [teamId], references: [id])
+    teamId      Int
+    creator     User             @relation(fields: [creatorId], references: [id], name: "TaskCreator")
+    creatorId   Int
+    assignments TaskAssignment[]
+}
+
+model TaskAssignment {
+    id         Int     @id @default(autoincrement())
+    taskId     Int
+    userId     Int
+    submission String?
+    grade      String?
+    task       Task    @relation(fields: [taskId], references: [id])
+    user       User    @relation(fields: [userId], references: [id])
+}
