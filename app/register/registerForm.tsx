@@ -19,6 +19,7 @@ export default function RegisterForm({ postRegister }: { postRegister: any }) {
                 variant: "destructive",
                 title: "Error" + ' (' + error.issues[0].path + ')',
                 description: error.issues[0].message,
+                duration: 5000,
             })
         }
     }
