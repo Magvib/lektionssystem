@@ -42,11 +42,11 @@ export default async function Home() {
                             <StudentTeams />
                         </Suspense>
                     </CardContent>
-                    <CardFooter className='justify-start'>
+                    {/* <CardFooter className='justify-start'>
                         <form action={logout}>
                             <Button variant={'destructive'}>Logout</Button>
                         </form>
-                    </CardFooter>
+                    </CardFooter> */}
                 </Card>
             </div>
         </div>
