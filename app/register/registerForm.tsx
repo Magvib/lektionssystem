@@ -25,7 +25,7 @@ export default function RegisterForm({ postRegister }: { postRegister: any }) {
     }
 
     return (
-        <form className='mx-auto w-1/2 pt-10' action={clientAction}>
+        <form className='mx-auto w-2/3 pt-10' action={clientAction}>
             <Card>
                 <CardHeader>
                     <CardTitle>Register</CardTitle>

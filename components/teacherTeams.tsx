@@ -4,7 +4,6 @@ import {
     Table,
     TableBody,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -30,7 +29,7 @@ export default async function TeacherTeams() {
             members: true
         }
     })
-    
+
     return (
         <Table>
             <TableHeader>

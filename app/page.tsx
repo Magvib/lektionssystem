@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client'
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { getUser, logout } from '@/lib/user'
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
+import { getUser } from '@/lib/user'
 import TeacherTeams from '@/components/teacherTeams'
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -27,7 +25,7 @@ export default async function Home() {
 
     return (
         <div>
-            <div className='mx-auto w-1/2 pt-10'>
+            <div className='mx-auto w-2/3 pt-10'>
                 <Card>
                     <CardHeader>
                         <CardTitle>Dashboard</CardTitle>
@@ -42,11 +40,6 @@ export default async function Home() {
                             <StudentTeams />
                         </Suspense>
                     </CardContent>
-                    {/* <CardFooter className='justify-start'>
-                        <form action={logout}>
-                            <Button variant={'destructive'}>Logout</Button>
-                        </form>
-                    </CardFooter> */}
                 </Card>
             </div>
         </div>

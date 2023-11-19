@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import prisma from "@/lib/db";
 import Link from "next/link";
+import Members from "./members";
+import Tasks from "./tasks";
 
 export default async function Team({ params }: { params: { id: string } }) {
     const team = await prisma.team.findUnique({
@@ -17,7 +19,7 @@ export default async function Team({ params }: { params: { id: string } }) {
 
     return (
         <div>
-            <div className='mx-auto w-1/2 pt-10'>
+            <div className='mx-auto w-2/3 pt-10'>
                 <Card>
                     <CardHeader>
                         <CardTitle>{team?.name}</CardTitle>
@@ -26,17 +28,15 @@ export default async function Team({ params }: { params: { id: string } }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        Members: {team?.members.map((member) => (
-                            <div key={member.id}>
-                                {member.username}
-                            </div>
-                        ))}
-                        <br />
-                        Tasks: {team?.tasks.map((task) => (
-                            <div key={task.id}>
-                                {task.title}: {task.description}
-                            </div>
-                        ))}
+                        <h1 className="text-2xl mt-5">Add member (only teacher)</h1>
+                        <h1 className="text-2xl mt-5">Add task (only teacher)</h1>
+
+                        <h1 className="text-2xl mt-5">Members</h1>
+                        <Members members={team?.members || []} />
+                        <h1 className="text-2xl mt-5">Tasks</h1>
+                        <Tasks tasks={team?.tasks || []} />
+                        <h1 className="text-2xl mt-5">Hand in</h1>
+                        hand in a paper (only student)
                     </CardContent>
                     <CardFooter className='justify-start'>
                         <Link href="/">

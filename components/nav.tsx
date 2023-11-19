@@ -2,7 +2,6 @@ import { getUser, logout } from "@/lib/user";
 import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
 import Link from "next/link";
-import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 
 
@@ -12,7 +11,7 @@ export default async function Nav() {
 
     if (!user) {
         return (
-            <div className='mx-auto w-1/2 pt-10'>
+            <div className='mx-auto w-2/3 pt-10'>
                 <Card>
                     <Skeleton className="w-auto h-16" />
                 </Card>
@@ -21,7 +20,7 @@ export default async function Nav() {
     }
 
     return (
-        <div className='mx-auto w-1/2 pt-10'>
+        <div className='mx-auto w-2/3 pt-10'>
             <Card className="flex items-center justify-between space-x-4 lg:space-x-6 h-16 px-4">
                 <div><b>{user.username}</b> ({user.role.name})</div>
                 <div className="flex items-center space-x-4">
