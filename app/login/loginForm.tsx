@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { Label } from '@radix-ui/react-label'
-import { Link } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 export default function LoginForm({ postLogin }: { postLogin: any }) {

@@ -24,7 +24,7 @@ export default async function Nav() {
         <div className='mx-auto w-2/3 pt-10'>
             <Card className="flex items-center justify-between space-x-4 lg:space-x-6 h-16 px-4">
                 <div className="flex items-center space-x-4">
-                    <Image src={await getAvatar()} width={32} height={32} alt="" className="rounded-full" />
+                    <Image src={await getAvatar()} width={32} height={32} alt={user?.username ?? ''} className="rounded-full" />
                     <b>{user.username}</b> ({user.role.name})
                 </div>
                 <div className="flex items-center space-x-4">
