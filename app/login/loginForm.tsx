@@ -30,10 +30,10 @@ export default function LoginForm({ postLogin }: { postLogin: any }) {
 
             // Clear password field and username field
             var passwordField: any = document.querySelector(
-                'input[name="password"]'
+                'input[name="password"]',
             );
             var usernameField: any = document.querySelector(
-                'input[name="username"]'
+                'input[name="username"]',
             );
             if (passwordField) {
                 passwordField.value = "";
