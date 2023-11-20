@@ -1,10 +1,10 @@
 // Get cookie from browser
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation';
-import prisma from './db';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import prisma from "./db";
 
 export async function getUser() {
-    const user = cookies().get('user')
+    const user = cookies().get("user");
     if (user) {
         const userId = parseInt(user.value, 10);
         if (!isNaN(userId)) {
@@ -22,24 +22,24 @@ export async function getUser() {
                         },
                     },
                 },
-            })
+            });
         }
     }
-    return null
+    return null;
 }
 
 export async function getAvatar() {
     const user = await getUser();
     if (user?.username) {
         // Parse username and check for a-zA-Z0-9
-        const username = user.username.replace(/[^a-zA-Z0-9]/g, '');
-        return `https://www.gravatar.com/avatar/${username}?s=128&d=identicon&r=PG`
+        const username = user.username.replace(/[^a-zA-Z0-9]/g, "");
+        return `https://www.gravatar.com/avatar/${username}?s=128&d=identicon&r=PG`;
     }
-    return 'https://www.gravatar.com/avatar/1?s=128&d=identicon&r=PG'
+    return "https://www.gravatar.com/avatar/1?s=128&d=identicon&r=PG";
 }
 
 export async function logout() {
-    'use server'
-    cookies().delete('user');
-    redirect('/login');
+    "use server";
+    cookies().delete("user");
+    redirect("/login");
 }

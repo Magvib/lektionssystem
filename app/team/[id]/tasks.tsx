@@ -7,7 +7,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 export default function Tasks({ tasks }: { tasks: Task[] }) {
     return (
@@ -28,12 +28,10 @@ export default function Tasks({ tasks }: { tasks: Task[] }) {
                     ))
                 ) : (
                     <TableRow>
-                        <TableCell>
-                            No results.
-                        </TableCell>
+                        <TableCell>No results.</TableCell>
                     </TableRow>
                 )}
             </TableBody>
         </Table>
-    )
+    );
 }

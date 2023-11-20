@@ -7,7 +7,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 export default function Members({ members }: { members: User[] }) {
     return (
@@ -27,13 +27,11 @@ export default function Members({ members }: { members: User[] }) {
                         </TableRow>
                     ))
                 ) : (
-                <TableRow>
-                    <TableCell>
-                        No results.
-                    </TableCell>
-                </TableRow>
+                    <TableRow>
+                        <TableCell>No results.</TableCell>
+                    </TableRow>
                 )}
             </TableBody>
         </Table>
-    )
+    );
 }
