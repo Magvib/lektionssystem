@@ -1,6 +1,6 @@
 import { getAvatar, getUser, logout } from "@/lib/user";
 import { Button } from "./ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
+import { Card } from "./ui/card";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton"
 import Image from "next/image";

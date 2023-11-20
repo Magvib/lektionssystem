@@ -34,7 +34,7 @@ export default async function Home() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <span className='text-red-600'>TODO: account profile (change password)</span>
+                        <span className='text-red-600'>TODO: account profile (change password), input (join group)</span>
                         {teacherTeams}
                         <h1 className='text-2xl mt-5'>Teams</h1>
                         <Suspense fallback={<Skeleton className="h-24 w-full" />}>

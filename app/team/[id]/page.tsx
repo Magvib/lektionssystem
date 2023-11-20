@@ -28,7 +28,8 @@ export default async function Team({ params }: { params: { id: string } }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <span className='text-red-600'>TODO: (add member, add task, hand in)</span>
+                        <span className='text-red-600'>TODO: (add member, add task, hand in, edit team title)</span>
+                        <span className='text-red-600'>TODO: (add task view)</span>
 
                         <h1 className="text-2xl mt-5">Members</h1>
                         <Members members={team?.members || []} />
