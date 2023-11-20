@@ -48,7 +48,7 @@ export default async function TeacherTeams() {
                         <TableCell>{team.members.length}</TableCell>
                         <TableCell className='flex gap-4 justify-end'>
                             <Link href={`/team/${team.id}`}>
-                                <Button variant={'default'}>Edit</Button>
+                                <Button variant={'secondary'}>Edit</Button>
                             </Link>
                             <form>
                                 <Button variant={'destructive'}>Delete</Button>
