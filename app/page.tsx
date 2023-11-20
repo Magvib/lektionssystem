@@ -14,7 +14,7 @@ export default async function Home() {
     if (user?.role.name === 'Teacher') {
         teacherTeams = (
             <div>
-                <h1 className='text-2xl'>Owned Teams</h1>
+                <h1 className='text-2xl mt-5'>Owned Teams</h1>
                 <Suspense fallback={<Skeleton className="h-24 w-full" />}>
                 <TeacherTeams />
                 </Suspense>
@@ -34,8 +34,9 @@ export default async function Home() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
+                        <span className='text-red-600'>TODO: account profile (change password)</span>
                         {teacherTeams}
-                        <h1 className='text-2xl'>Teams</h1>
+                        <h1 className='text-2xl mt-5'>Teams</h1>
                         <Suspense fallback={<Skeleton className="h-24 w-full" />}>
                             <StudentTeams />
                         </Suspense>

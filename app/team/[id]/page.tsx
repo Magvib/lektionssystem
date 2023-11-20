@@ -28,15 +28,12 @@ export default async function Team({ params }: { params: { id: string } }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <h1 className="text-2xl mt-5">Add member (only teacher)</h1>
-                        <h1 className="text-2xl mt-5">Add task (only teacher)</h1>
+                        <span className='text-red-600'>TODO: (add member, add task, hand in)</span>
 
                         <h1 className="text-2xl mt-5">Members</h1>
                         <Members members={team?.members || []} />
                         <h1 className="text-2xl mt-5">Tasks</h1>
                         <Tasks tasks={team?.tasks || []} />
-                        <h1 className="text-2xl mt-5">Hand in</h1>
-                        hand in a paper (only student)
                     </CardContent>
                     <CardFooter className='justify-start'>
                         <Link href="/">
