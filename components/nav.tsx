@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton"
+import Image from "next/image";
 
 
 
@@ -22,7 +23,10 @@ export default async function Nav() {
     return (
         <div className='mx-auto w-2/3 pt-10'>
             <Card className="flex items-center justify-between space-x-4 lg:space-x-6 h-16 px-4">
-                <div><b>{user.username}</b> ({user.role.name})</div>
+                <div className="flex items-center space-x-2">
+                    <Image src={'https://www.gravatar.com/avatar/'+ user.username +'?s=32&d=identicon&r=PG'} width={32} height={32} alt="" className="rounded-full" />
+                    <b>{user.username}</b> ({user.role.name})
+                </div>
                 <div className="flex items-center space-x-4">
                     <Link href="/">Dashboard</Link>
                     <form action={logout}>
