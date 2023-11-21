@@ -29,7 +29,9 @@ export default async function Nav() {
                         alt={user?.username ?? ""}
                         className="rounded-full"
                     />
-                    <b>{user.username}</b> ({user.role.name})
+                    <span>
+                        <b>{user.username}</b> ({user.role.name})
+                    </span>
                 </div>
                 <div className="flex items-center space-x-4">
                     <Link href="/">Dashboard</Link>

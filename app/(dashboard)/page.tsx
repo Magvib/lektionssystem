@@ -6,10 +6,10 @@ import {
     CardDescription,
 } from "@/components/ui/card";
 import { getUser } from "@/lib/user";
-import TeacherTeams from "@/components/teacherTeams";
+import TeacherTeams from "@/app/(dashboard)/teacherTeams";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import StudentTeams from "@/components/studentTeams";
+import StudentTeams from "@/app/(dashboard)/studentTeams";
 import { Separator } from "@/components/ui/separator";
 
 export default async function Home() {

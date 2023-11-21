@@ -11,8 +11,13 @@ import prisma from "@/lib/db";
 import Link from "next/link";
 import Members from "./members";
 import Tasks from "./tasks";
+import AddMember from "./addMember";
+import { Team } from "@prisma/client";
+import { redirect } from "next/navigation";
+import { getUser } from "@/lib/user";
 
 export default async function Team({ params }: { params: { id: string } }) {
+    const user = await getUser();
     const team = await prisma.team.findUnique({
         where: {
             id: parseInt(params.id),
@@ -23,6 +28,19 @@ export default async function Team({ params }: { params: { id: string } }) {
             tasks: true,
         },
     });
+
+    // Return 404 if team doesn't exist
+    if (!team) {
+        redirect("/");
+    }
+
+    // Redirect if user is not a member of the team or is the manager
+    if (
+        !team.members.find((member) => member.id === user?.id) &&
+        team.manager.id !== user?.id
+    ) {
+        redirect("/");
+    }
 
     return (
         <div>
@@ -39,12 +57,22 @@ export default async function Team({ params }: { params: { id: string } }) {
                             TODO: (add member, add task, hand in, edit team
                             title)
                         </span>
-                        <span className="text-red-600">
+                        <span className="text-red-600 block">
                             TODO: (add task view)
                         </span>
 
+                        {user?.role.name === "Teacher" && (
+                            <>
+                                <h1 className="text-2xl mt-5">Add member</h1>
+                                <AddMember teamId={team?.id} />
+                            </>
+                        )}
+
                         <h1 className="text-2xl mt-5">Members</h1>
-                        <Members members={team?.members || []} />
+                        <Members
+                            teamId={team?.id}
+                            members={team?.members || []}
+                        />
                         <h1 className="text-2xl mt-5">Tasks</h1>
                         <Tasks tasks={team?.tasks || []} />
                     </CardContent>

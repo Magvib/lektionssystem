@@ -42,20 +42,27 @@ export default async function StudentTeams() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {teams.map((team) => (
-                    <TableRow key={team.id}>
-                        <TableCell className="font-medium">
-                            {team.name}
-                        </TableCell>
-                        <TableCell>{team.manager.username}</TableCell>
-                        <TableCell>{team.members.length}</TableCell>
-                        <TableCell className="flex gap-4 justify-end">
-                            <Link href={`/team/${team.id}`}>
-                                <Button variant={"default"}>View</Button>
-                            </Link>
+                {(teams.length !== 0 &&
+                    teams.map((team) => (
+                        <TableRow key={team.id}>
+                            <TableCell className="font-medium">
+                                {team.name}
+                            </TableCell>
+                            <TableCell>{team.manager.username}</TableCell>
+                            <TableCell>{team.members.length}</TableCell>
+                            <TableCell className="flex gap-4 justify-end">
+                                <Link href={`/team/${team.id}`}>
+                                    <Button variant={"default"}>View</Button>
+                                </Link>
+                            </TableCell>
+                        </TableRow>
+                    ))) || (
+                    <TableRow>
+                        <TableCell colSpan={4} className="text-center">
+                            You are not a member of any team
                         </TableCell>
                     </TableRow>
-                ))}
+                )}
             </TableBody>
         </Table>
     );

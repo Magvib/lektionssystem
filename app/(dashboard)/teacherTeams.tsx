@@ -41,23 +41,32 @@ export default async function TeacherTeams() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {teams.map((team) => (
-                    <TableRow key={team.id}>
-                        <TableCell className="font-medium">
-                            {team.name}
-                        </TableCell>
-                        <TableCell>{team.manager.username}</TableCell>
-                        <TableCell>{team.members.length}</TableCell>
-                        <TableCell className="flex gap-4 justify-end">
-                            <Link href={`/team/${team.id}`}>
-                                <Button variant={"secondary"}>Edit</Button>
-                            </Link>
-                            <form>
-                                <Button variant={"destructive"}>Delete</Button>
-                            </form>
+                {(teams.length !== 0 &&
+                    teams.map((team) => (
+                        <TableRow key={team.id}>
+                            <TableCell className="font-medium">
+                                {team.name}
+                            </TableCell>
+                            <TableCell>{team.manager.username}</TableCell>
+                            <TableCell>{team.members.length}</TableCell>
+                            <TableCell className="flex gap-4 justify-end">
+                                <Link href={`/team/${team.id}`}>
+                                    <Button variant={"secondary"}>Edit</Button>
+                                </Link>
+                                <form>
+                                    <Button variant={"destructive"}>
+                                        Delete
+                                    </Button>
+                                </form>
+                            </TableCell>
+                        </TableRow>
+                    ))) || (
+                    <TableRow>
+                        <TableCell colSpan={4} className="text-center">
+                            No teams found
                         </TableCell>
                     </TableRow>
-                ))}
+                )}
             </TableBody>
         </Table>
     );
