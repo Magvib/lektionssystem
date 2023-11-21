@@ -16,6 +16,8 @@ import { Team } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/user";
 import { Separator } from "@/components/ui/separator";
+import AddTask from "./addTask";
+import { addTaskHook } from "@/lib/task";
 
 export default async function Team({ params }: { params: { id: string } }) {
     const user = await getUser();
@@ -70,8 +72,21 @@ export default async function Team({ params }: { params: { id: string } }) {
                             teamId={team?.id}
                             members={team?.members || []}
                         />
+                        {user?.role.name === "Teacher" && (
+                            <>
+                                <h1 className="text-2xl">Add task</h1>
+                                <AddTask
+                                    addTask={addTaskHook}
+                                    teamId={team?.id}
+                                />
+                                <Separator
+                                    orientation="horizontal"
+                                    className="my-5"
+                                />
+                            </>
+                        )}
                         <h1 className="text-2xl mt-5">Tasks</h1>
-                        <Tasks tasks={team?.tasks || []} />
+                        <Tasks teamId={team?.id} tasks={team?.tasks || []} />
                     </CardContent>
                     <CardFooter className="justify-start">
                         <Link href="/">
