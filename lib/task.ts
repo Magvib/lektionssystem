@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { getUser } from "./user";
 import { z } from "zod";
 import prisma from "./db";
@@ -10,13 +9,22 @@ export async function addTaskHook(formData: FormData) {
     const name = formData.get("name");
     const description = formData.get("description");
     const teamId = parseInt(formData.get("teamId") as string);
+    const dueDate = formData.get("dueDate")
+        ? new Date(formData.get("dueDate") as string)
+        : null;
     const user = await getUser();
+
+    // Set timezone to UTC+2
+    if (dueDate) {
+        dueDate.setHours(dueDate.getHours() + 2);
+    }
 
     // Zod validation
     const taskSchema = z.object({
         name: z.string().min(3).max(255),
         description: z.string().min(5).max(255),
         teamId: z.number(),
+        dueDate: z.date().optional(),
     });
 
     // Validate form data
@@ -25,6 +33,7 @@ export async function addTaskHook(formData: FormData) {
             name: name as string,
             description: description as string,
             teamId: teamId,
+            dueDate: dueDate,
         });
     } catch (error: any) {
         return JSON.stringify(error);
@@ -37,6 +46,7 @@ export async function addTaskHook(formData: FormData) {
             description: description as string,
             creatorId: user?.id as number,
             teamId: teamId,
+            dueDate: dueDate,
         },
     });
 

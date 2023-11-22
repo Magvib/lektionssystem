@@ -11,6 +11,7 @@ import {
 import { getUser } from "@/lib/user";
 import { Button } from "@/components/ui/button";
 import { deleteTask } from "@/lib/task";
+import { format } from "date-fns";
 
 export default async function Tasks({
     tasks,
@@ -27,6 +28,7 @@ export default async function Tasks({
                 <TableRow>
                     <TableHead>Title</TableHead>
                     <TableHead>Desc</TableHead>
+                    <TableHead>Due Date</TableHead>
                     {/* If teacher show actions */}
                     {user?.role.name === "Teacher" && (
                         <TableHead>Actions</TableHead>
@@ -39,6 +41,11 @@ export default async function Tasks({
                         <TableRow key={task.id}>
                             <TableCell>{task.title}</TableCell>
                             <TableCell>{task.description}</TableCell>
+                            <TableCell>
+                                {task.dueDate
+                                    ? format(task.dueDate, "PPP")
+                                    : ""}
+                            </TableCell>
                             {user?.role.name === "Teacher" && (
                                 <TableCell>
                                     <form action={deleteTask}>
