@@ -28,7 +28,11 @@ export default async function Team({ params }: { params: { id: string } }) {
         include: {
             manager: true,
             members: true,
-            tasks: true,
+            tasks: {
+                orderBy: {
+                    dueDate: "asc",
+                },
+            },
         },
     });
 
