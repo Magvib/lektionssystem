@@ -3,6 +3,24 @@ import { z } from "zod";
 import prisma from "./db";
 import { revalidatePath } from "next/cache";
 
+export async function getTask(taskId: string) {
+    const task = await prisma.task.findUnique({
+        where: {
+            id: parseInt(taskId),
+        },
+        include: {
+            creator: true,
+            team: true,
+        },
+    });
+
+    if (!task) {
+        return null;
+    }
+
+    return task;
+}
+
 export async function addTaskHook(formData: FormData) {
     "use server";
 

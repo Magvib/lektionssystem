@@ -1,16 +1,10 @@
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardContent,
-    CardDescription,
-} from "@/components/ui/card";
 import { getUser } from "@/lib/user";
 import TeacherTeams from "@/app/(dashboard)/teacherTeams";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import StudentTeams from "@/app/(dashboard)/studentTeams";
 import { Separator } from "@/components/ui/separator";
+import Body from "@/components/body";
 
 export default async function Home() {
     // Get current user
@@ -30,26 +24,19 @@ export default async function Home() {
     }
 
     return (
-        <div>
-            <div className="mx-auto w-2/3 pt-10">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Dashboard</CardTitle>
-                        <CardDescription>
-                            Welcome <b>{user?.username}</b> ({user?.role.name})
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        {teacherTeams}
-                        <h1 className="text-2xl">Teams</h1>
-                        <Suspense
-                            fallback={<Skeleton className="h-24 w-full" />}
-                        >
-                            <StudentTeams />
-                        </Suspense>
-                    </CardContent>
-                </Card>
-            </div>
-        </div>
+        <Body
+            title="Dashboard"
+            description={
+                <>
+                    Welcome <b>{user?.username}</b> ({user?.role.name})
+                </>
+            }
+        >
+            {teacherTeams}
+            <h1 className="text-2xl">Teams</h1>
+            <Suspense fallback={<Skeleton className="h-24 w-full" />}>
+                <StudentTeams />
+            </Suspense>
+        </Body>
     );
 }

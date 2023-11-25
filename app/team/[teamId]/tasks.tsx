@@ -29,7 +29,6 @@ export default async function Tasks({
                     <TableHead>Title</TableHead>
                     <TableHead>Desc</TableHead>
                     <TableHead>Due Date</TableHead>
-                    {/* If teacher show actions */}
                     {user?.role.name === "Teacher" && (
                         <TableHead>Actions</TableHead>
                     )}

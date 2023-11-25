@@ -10,7 +10,7 @@ export default async function Nav() {
 
     if (!user) {
         return (
-            <div className="mx-auto w-2/3 pt-10">
+            <div className="container mx-auto pt-10">
                 <Card>
                     <Skeleton className="w-auto h-16" />
                 </Card>
@@ -19,7 +19,7 @@ export default async function Nav() {
     }
 
     return (
-        <div className="mx-auto w-2/3 pt-10">
+        <div className="container mx-auto pt-10">
             <Card className="flex items-center justify-between space-x-4 lg:space-x-6 h-16 px-4">
                 <div className="flex items-center space-x-4">
                     <Image
