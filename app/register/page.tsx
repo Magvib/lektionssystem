@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import RegisterForm from "./registerForm";
+import RegisterForm from "@/components/register-form";
 import prisma from "@/lib/db";
 
 export default async function Register() {

@@ -1,8 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import bcrypt from "bcrypt";
-import prisma from "@/lib/db";
-import LoginForm from "./loginForm";
+import LoginForm from "@/components/login-form";
+import { checkCredentials } from "@/lib/user";
 
 export default async function Login() {
     async function postLogin(formData: FormData) {
@@ -11,20 +10,16 @@ export default async function Login() {
         const username = formData.get("username");
         const password = formData.get("password");
 
-        // Get user by username
-        const user = await prisma.user.findUnique({
-            where: {
-                username: username as string,
-            },
-        });
+        // Use the user.login function to check if the user is valid
+        const auth = await checkCredentials(
+            username as string,
+            password as string
+        );
 
         // Check if user exists
-        if (
-            user &&
-            bcrypt.compareSync(password as string, user.password as string)
-        ) {
+        if (auth) {
             // Login success
-            cookies().set("user", user.id.toString());
+            cookies().set("user", auth.toString());
             redirect("/");
         }
 

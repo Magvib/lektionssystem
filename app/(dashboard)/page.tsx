@@ -1,8 +1,8 @@
 import { getUser } from "@/lib/user";
-import TeacherTeams from "@/app/(dashboard)/teacherTeams";
+import TeacherTeams from "@/components/manager-team-list";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import StudentTeams from "@/app/(dashboard)/studentTeams";
+import StudentTeams from "@/components/member-team-list";
 import { Separator } from "@/components/ui/separator";
 import Body from "@/components/body";
 

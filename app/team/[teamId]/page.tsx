@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Members from "./members";
-import Tasks from "./tasks";
-import AddMember from "./addMember";
+import MemberList from "@/components/member-list";
+import TaskList from "../../../components/task-list";
+import AddMember from "@/components/add-member";
 import { Team } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/user";
 import { Separator } from "@/components/ui/separator";
-import AddTask from "./addTask";
+import AddTask from "@/components/add-task";
 import { addTaskHook } from "@/lib/task";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
@@ -47,7 +47,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
             )}
 
             <h1 className="text-2xl">Members</h1>
-            <Members teamId={team?.id} members={team?.members || []} />
+            <MemberList teamId={team?.id} members={team?.members || []} />
             {user?.role.name === "Teacher" && (
                 <>
                     <h1 className="text-2xl">Add task</h1>
@@ -56,7 +56,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
                 </>
             )}
             <h1 className="text-2xl mt-5">Tasks</h1>
-            <Tasks teamId={team?.id} tasks={team?.tasks || []} />
+            <TaskList teamId={team?.id} tasks={team?.tasks || []} />
         </Body>
     );
 }

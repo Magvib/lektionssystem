@@ -13,7 +13,7 @@ import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { getUser } from "@/lib/user";
 
-export default async function Members({
+export default async function MemberList({
     members,
     teamId,
 }: {

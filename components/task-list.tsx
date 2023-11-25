@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { deleteTask } from "@/lib/task";
 import { format } from "date-fns";
 
-export default async function Tasks({
+export default async function TaskList({
     tasks,
     teamId,
 }: {
