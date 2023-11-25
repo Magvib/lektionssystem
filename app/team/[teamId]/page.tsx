@@ -32,11 +32,6 @@ export default async function Team({ params }: { params: { teamId: string } }) {
                     Creator: <b>{team?.manager.username}</b>
                 </>
             }
-            footer={
-                <Link href="/">
-                    <Button variant={"default"}>Home</Button>
-                </Link>
-            }
         >
             {user?.role.name === "Teacher" && (
                 <>
