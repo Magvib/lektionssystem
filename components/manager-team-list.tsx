@@ -12,7 +12,11 @@ import Link from "next/link";
 import { getUser } from "@/lib/user";
 import prisma from "@/lib/db";
 
-export default async function TeacherTeams() {
+export default async function TeacherTeams({
+    deleteTeam,
+}: {
+    deleteTeam: any;
+}) {
     // Get current user
     const user = await getUser();
 
@@ -53,7 +57,12 @@ export default async function TeacherTeams() {
                                 <Link href={`/team/${team.id}`}>
                                     <Button variant={"secondary"}>Edit</Button>
                                 </Link>
-                                <form>
+                                <form action={deleteTeam}>
+                                    <input
+                                        type="hidden"
+                                        name="teamId"
+                                        value={team.id}
+                                    />
                                     <Button variant={"destructive"}>
                                         Delete
                                     </Button>

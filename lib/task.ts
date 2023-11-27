@@ -21,7 +21,7 @@ export async function getTask(taskId: string) {
     return task;
 }
 
-export async function addTaskHook(formData: FormData) {
+export async function createTask(formData: FormData) {
     "use server";
 
     const name = formData.get("name");

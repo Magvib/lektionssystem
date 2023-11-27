@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/lib/user";
 import { Separator } from "@/components/ui/separator";
 import AddTask from "@/components/add-task";
-import { addTaskHook } from "@/lib/task";
+import { createTask } from "@/lib/task";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
 
@@ -44,7 +44,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
             {user?.role.name === "Teacher" && (
                 <>
                     <h1 className="text-2xl">Add task</h1>
-                    <AddTask addTask={addTaskHook} teamId={team?.id} />
+                    <AddTask addTask={createTask} teamId={team?.id} />
                     <Separator orientation="horizontal" className="my-5" />
                 </>
             )}

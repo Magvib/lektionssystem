@@ -55,7 +55,7 @@ export default async function TaskList({
                             )}
                             <TableCell>
                                 {(user?.id === team?.managerId && (
-                                    <div className="flex gap-4 justify-end">
+                                    <div className="flex gap-4">
                                         <Link
                                             href={`/team/${teamId}/task/${task.id}`}
                                         >
