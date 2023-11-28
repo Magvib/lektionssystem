@@ -13,6 +13,7 @@ import { getTeam } from "@/lib/team";
 export default async function Team({ params }: { params: { teamId: string } }) {
     const user = await getUser();
     const team = await getTeam(params.teamId);
+    const isManager = team?.manager.id === user?.id;
 
     if (
         !team ||
@@ -31,7 +32,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
                 </>
             }
         >
-            {user?.role.name === "Teacher" && (
+            {isManager && (
                 <>
                     <h1 className="text-2xl">Add member</h1>
                     <AddMember teamId={team?.id} />
@@ -40,8 +41,12 @@ export default async function Team({ params }: { params: { teamId: string } }) {
             )}
 
             <h1 className="text-2xl">Members</h1>
-            <MemberList teamId={team?.id} members={team?.members || []} />
-            {user?.role.name === "Teacher" && (
+            <MemberList
+                teamId={team?.id}
+                members={team?.members || []}
+                isManager={isManager}
+            />
+            {isManager && (
                 <>
                     <h1 className="text-2xl">Add task</h1>
                     <AddTask addTask={createTask} teamId={team?.id} />

@@ -16,9 +16,11 @@ import { getUser } from "@/lib/user";
 export default async function MemberList({
     members,
     teamId,
+    isManager,
 }: {
     members: User[];
     teamId: number;
+    isManager: boolean;
 }) {
     async function removeMember(formData: FormData) {
         "use server";
@@ -65,9 +67,7 @@ export default async function MemberList({
                 <TableRow>
                     <TableHead>Username</TableHead>
                     <TableHead>Email</TableHead>
-                    {user?.role.name === "Teacher" && (
-                        <TableHead>Actions</TableHead>
-                    )}
+                    {isManager && <TableHead>Actions</TableHead>}
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -76,7 +76,7 @@ export default async function MemberList({
                         <TableRow key={member.id}>
                             <TableCell>{member.username}</TableCell>
                             <TableCell>{member.email}</TableCell>
-                            {user?.role.name === "Teacher" && (
+                            {isManager && (
                                 <TableCell>
                                     <form action={removeMember}>
                                         <input
