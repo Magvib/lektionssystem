@@ -14,6 +14,8 @@ import { deleteTask } from "@/lib/task";
 import { format } from "date-fns";
 import Link from "next/link";
 import { getTeam } from "@/lib/team";
+import db from "@/lib/db";
+import { Badge } from "./ui/badge";
 
 export default async function TaskList({
     tasks,
@@ -25,6 +27,16 @@ export default async function TaskList({
     const user = await getUser();
     const team = await getTeam(teamId.toString());
 
+    // Get all taskAssignments for this user and this team
+    const taskAssignments = await db.taskAssignment.findMany({
+        where: {
+            userId: user?.id,
+            taskId: {
+                in: tasks.map((task) => task.id),
+            },
+        },
+    });
+
     return (
         <Table>
             <TableHeader>
@@ -33,7 +45,7 @@ export default async function TaskList({
                     <TableHead>Desc</TableHead>
                     <TableHead>Due Date</TableHead>
                     {user?.id !== team?.managerId && (
-                        <TableHead>Status</TableHead>
+                        <TableHead>Grade</TableHead>
                     )}
                     <TableHead>Actions</TableHead>
                 </TableRow>
@@ -50,8 +62,38 @@ export default async function TaskList({
                                     : ""}
                             </TableCell>
                             {user?.id !== team?.managerId && (
-                                // TODO: Show status of the task for the user
-                                <TableCell>Not sent</TableCell>
+                                <TableCell>
+                                    {(() => {
+                                        const taskAssignment =
+                                            taskAssignments.find(
+                                                (taskAssignment) =>
+                                                    taskAssignment.taskId ===
+                                                    task.id
+                                            );
+
+                                        if (!taskAssignment) {
+                                            return (
+                                                <Badge variant="outline">
+                                                    Not graded
+                                                </Badge>
+                                            );
+                                        }
+
+                                        if (taskAssignment.grade !== null) {
+                                            return (
+                                                <Badge variant="default">
+                                                    {taskAssignment.grade}
+                                                </Badge>
+                                            );
+                                        }
+
+                                        return (
+                                            <Badge variant="secondary">
+                                                Pending
+                                            </Badge>
+                                        );
+                                    })()}
+                                </TableCell>
                             )}
                             <TableCell>
                                 {(user?.id === team?.managerId && (
