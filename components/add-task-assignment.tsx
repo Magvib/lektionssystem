@@ -6,16 +6,18 @@ import { useToast } from "@/components/ui/use-toast";
 import React from "react";
 
 export default function AddTaskAssignment({
-    createAssignment,
+    createTaskAssignment,
+    teamId,
+    taskId,
 }: {
-    createAssignment: any;
+    createTaskAssignment: any;
+    teamId: string;
+    taskId: string;
 }) {
     const { toast } = useToast();
 
     async function clientAction(formData: FormData) {
-        var name: string = formData.get("assignment") as string;
-
-        var error = await createAssignment(name);
+        var error = await createTaskAssignment(formData);
 
         if (error) {
             error = JSON.parse(error);
@@ -28,15 +30,17 @@ export default function AddTaskAssignment({
         }
 
         // Clear the form
-        var nameInput: any = document.querySelector('input[name="name"]');
+        var nameInput: any = document.querySelector('input[name="submission"]');
         nameInput.value = "";
     }
 
     return (
         <form action={clientAction}>
             <div className="flex justify-between gap-5 mt-2">
+                <input type="hidden" name="teamId" value={teamId} />
+                <input type="hidden" name="taskId" value={taskId} />
                 <Input
-                    name="assignment"
+                    name="submission"
                     placeholder="Assignment description or link"
                 />
                 <Button variant="default" type="submit">

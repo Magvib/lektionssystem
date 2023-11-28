@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/lib/user";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
-import { getTask } from "@/lib/task";
+import { createTaskAssignment, getTask } from "@/lib/task";
 import db from "@/lib/db";
 import AddTaskAssignment from "@/components/add-task-assignment";
 
@@ -64,10 +64,6 @@ export default async function page({
         },
     });
 
-    async function createAssignment(formData: FormData) {
-        "use server";
-    }
-
     return (
         <Body
             title={team?.name + " - " + task?.title}
@@ -92,13 +88,15 @@ export default async function page({
             {taskAssignment ? (
                 <div>
                     <p>Submission: {taskAssignment.submission}</p>
-                    <p>Grade: {taskAssignment.grade}</p>
+                    <p>Grade: {taskAssignment.grade || "Awaiting grade"}</p>
                 </div>
             ) : (
                 <div>
                     {(diff > 0 && (
                         <AddTaskAssignment
-                            createAssignment={createAssignment}
+                            createTaskAssignment={createTaskAssignment}
+                            teamId={team?.id.toString()}
+                            taskId={task?.id.toString()}
                         />
                     )) || <p className="text-red-600">Not handed in</p>}
                 </div>
