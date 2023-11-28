@@ -3,7 +3,24 @@ import { z } from "zod";
 import prisma from "./db";
 import { revalidatePath } from "next/cache";
 
-// createTaskAssignment
+export async function deleteTaskAssignment(formData: FormData) {
+    "use server";
+
+    const taskAssignment = formData.get("taskAssignment") as string;
+    const teamId = parseInt(formData.get("teamId") as string);
+    const taskId = parseInt(formData.get("taskId") as string);
+
+    // Delete task assignment
+    await prisma.taskAssignment.delete({
+        where: {
+            id: parseInt(taskAssignment),
+        },
+    });
+
+    // Redirect to team page
+    revalidatePath("/team/" + teamId + "/task/" + taskId);
+}
+
 export async function createTaskAssignment(formData: FormData) {
     "use server";
 

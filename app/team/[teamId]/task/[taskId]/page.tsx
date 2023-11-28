@@ -4,9 +4,15 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/lib/user";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
-import { createTaskAssignment, getTask } from "@/lib/task";
+import {
+    createTaskAssignment,
+    deleteTaskAssignment,
+    getTask,
+} from "@/lib/task";
 import db from "@/lib/db";
 import AddTaskAssignment from "@/components/add-task-assignment";
+import { Badge } from "@/components/ui/badge";
+import TimeLeft from "@/components/time-left";
 
 export default async function page({
     params,
@@ -16,6 +22,7 @@ export default async function page({
     const user = await getUser();
     const team = await getTeam(params.teamId);
     const task = await getTask(params.taskId);
+    const isManager = team?.manager.id === user?.id;
 
     if (
         !team ||
@@ -36,25 +43,6 @@ export default async function page({
 
     // Calculate diff between now and due date
     const diff = dueDate.getTime() - new Date().getTime();
-
-    // Calculate days, hours and minutes left
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-
-    // Make color green if more than 24 hours left else yellow
-    var color = days > 0 ? "text-green-600" : "text-yellow-600";
-
-    // Format the time left
-    timeLeft = (
-        <span className={color}>
-            {days}d {hours}h {minutes}m
-        </span>
-    );
-
-    if (diff < 0) {
-        timeLeft = <span className="text-red-600">Time is up</span>;
-    }
 
     // Check if user has handed in the task
     const taskAssignment = await db.taskAssignment.findFirst({
@@ -82,13 +70,56 @@ export default async function page({
             <p>{task?.description}</p>
 
             <h2 className="text-xl mt-4">Time left</h2>
-            <span>{timeLeft}</span>
+            <span>
+                <TimeLeft dueDate={task.dueDate} />
+            </span>
+
+            {isManager && (
+                <div>
+                    <h2 className="text-xl mt-4">Assignment list</h2>
+                </div>
+            )}
 
             <h2 className="text-xl mt-4">Assignment</h2>
             {taskAssignment ? (
                 <div>
                     <p>Submission: {taskAssignment.submission}</p>
-                    <p>Grade: {taskAssignment.grade || "Awaiting grade"}</p>
+                    <div>
+                        Grade:{" "}
+                        {taskAssignment.grade ? (
+                            <Badge variant="default">
+                                {taskAssignment.grade}
+                            </Badge>
+                        ) : (
+                            <Badge variant="secondary">Awaiting grade</Badge>
+                        )}
+                    </div>
+                    {diff > 0 && !taskAssignment.grade && (
+                        <form action={deleteTaskAssignment}>
+                            <input
+                                type="hidden"
+                                name="taskAssignment"
+                                value={taskAssignment.id}
+                            />
+                            <input
+                                type="hidden"
+                                name="teamId"
+                                value={team?.id}
+                            />
+                            <input
+                                type="hidden"
+                                name="taskId"
+                                value={task?.id}
+                            />
+                            <Button
+                                variant="destructive"
+                                type="submit"
+                                className="mt-4"
+                            >
+                                Rolback
+                            </Button>
+                        </form>
+                    )}
                 </div>
             ) : (
                 <div>
