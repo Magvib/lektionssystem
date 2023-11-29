@@ -31,6 +31,7 @@ export default async function TeacherTeams({
         include: {
             manager: true,
             members: true,
+            tasks: true,
         },
     });
 
@@ -40,7 +41,8 @@ export default async function TeacherTeams({
                 <TableRow>
                     <TableHead className="w-[100px]">Name</TableHead>
                     <TableHead>Manager</TableHead>
-                    <TableHead>Users count</TableHead>
+                    <TableHead>Users</TableHead>
+                    <TableHead>Tasks</TableHead>
                     <TableHead className="text-end">Actions</TableHead>
                 </TableRow>
             </TableHeader>
@@ -53,6 +55,7 @@ export default async function TeacherTeams({
                             </TableCell>
                             <TableCell>{team.manager.username}</TableCell>
                             <TableCell>{team.members.length}</TableCell>
+                            <TableCell>{team.tasks.length}</TableCell>
                             <TableCell className="flex gap-4 justify-end">
                                 <Link href={`/team/${team.id}`}>
                                     <Button variant={"secondary"}>Edit</Button>
