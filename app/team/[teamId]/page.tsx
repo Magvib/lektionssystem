@@ -9,7 +9,7 @@ import AddTask from "@/components/add-task";
 import { createTask } from "@/lib/task";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
-import db from "@/lib/db";
+import UpdateTeam from "@/components/update-team";
 
 export default async function Team({ params }: { params: { teamId: string } }) {
     const user = await getUser();
@@ -35,7 +35,9 @@ export default async function Team({ params }: { params: { teamId: string } }) {
         >
             {isManager && (
                 <>
-                    <h1 className="text-2xl">Add member</h1>
+                    <h1 className="text-2xl">Rename team</h1>
+                    <UpdateTeam teamId={team?.id} />
+                    <h1 className="text-2xl mt-4">Add member</h1>
                     <AddMember teamId={team?.id} />
                     <Separator orientation="horizontal" className="my-5" />
                 </>

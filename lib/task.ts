@@ -178,6 +178,58 @@ export async function getTask(taskId: string) {
     return task;
 }
 
+export async function updateTask(formData: FormData) {
+    "use server";
+
+    const name = formData.get("name");
+    const description = formData.get("description");
+    const taskId = parseInt(formData.get("taskId") as string);
+    const teamId = parseInt(formData.get("teamId") as string);
+    const dueDate = formData.get("dueDate")
+        ? new Date(formData.get("dueDate") as string)
+        : null;
+    const user = await getUser();
+
+    // Set timezone to UTC+1
+    if (dueDate) {
+        dueDate.setHours(dueDate.getHours() + 1);
+    }
+
+    // Zod validation
+    const taskSchema = z.object({
+        name: z.string().min(3).max(255),
+        description: z.string().min(5).max(255),
+        dueDate: z.date().optional(),
+    });
+
+    // Validate form data
+    try {
+        taskSchema.parse({
+            name: name as string,
+            description: description as string,
+            dueDate: dueDate,
+        });
+    } catch (error: any) {
+        return JSON.stringify(error);
+    }
+
+    // Add task to team
+    await prisma.task.update({
+        where: {
+            id: taskId,
+        },
+        data: {
+            title: name as string,
+            description: description as string,
+            creatorId: user?.id as number,
+            dueDate: dueDate,
+        },
+    });
+
+    // Redirect to team page
+    revalidatePath("/team/" + teamId + "/task/" + taskId);
+}
+
 export async function createTask(formData: FormData) {
     "use server";
 
@@ -189,9 +241,9 @@ export async function createTask(formData: FormData) {
         : null;
     const user = await getUser();
 
-    // Set timezone to UTC+2
+    // Set timezone to UTC+1
     if (dueDate) {
-        dueDate.setHours(dueDate.getHours() + 2);
+        dueDate.setHours(dueDate.getHours() + 1);
     }
 
     // Zod validation

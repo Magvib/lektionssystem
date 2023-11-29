@@ -9,6 +9,7 @@ import {
     createTaskAssignment,
     deleteTaskAssignment,
     getTask,
+    updateTask,
 } from "@/lib/task";
 import db from "@/lib/db";
 import AddTaskAssignment from "@/components/add-task-assignment";
@@ -31,6 +32,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import UpdateTask from "@/components/update-task";
 
 export default async function page({
     params,
@@ -94,6 +96,16 @@ export default async function page({
             <h1 className="text-2xl">{task?.title}</h1>
             <p>{task?.description}</p>
 
+            {isManager && (
+                <div>
+                    <h2 className="text-xl mt-4">Update task</h2>
+                    <UpdateTask
+                        teamId={team?.id}
+                        task={task}
+                        updateTask={updateTask}
+                    />
+                </div>
+            )}
             <h2 className="text-xl mt-4">Time left</h2>
             <span>
                 <TimeLeft dueDate={task.dueDate} />
