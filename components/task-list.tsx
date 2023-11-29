@@ -26,11 +26,12 @@ export default async function TaskList({
 }) {
     const user = await getUser();
     const team = await getTeam(teamId.toString());
+    const isManager = team?.manager.id === user?.id;
 
-    // Get all taskAssignments for this user and this team
+    // Get all taskAssignments if user is the mangager else only get the taskAssignments for the user
     const taskAssignments = await db.taskAssignment.findMany({
         where: {
-            userId: user?.id,
+            userId: isManager ? undefined : user?.id,
             taskId: {
                 in: tasks.map((task) => task.id),
             },
@@ -44,9 +45,9 @@ export default async function TaskList({
                     <TableHead>Title</TableHead>
                     <TableHead>Desc</TableHead>
                     <TableHead>Due Date</TableHead>
-                    {user?.id !== team?.managerId && (
+                    {(user?.id !== team?.managerId && (
                         <TableHead>Grade</TableHead>
-                    )}
+                    )) || <TableHead>Awaiting grading</TableHead>}
                     <TableHead>Actions</TableHead>
                 </TableRow>
             </TableHeader>
@@ -61,7 +62,7 @@ export default async function TaskList({
                                     ? format(task.dueDate, "PPP")
                                     : ""}
                             </TableCell>
-                            {user?.id !== team?.managerId && (
+                            {(user?.id !== team?.managerId && (
                                 <TableCell>
                                     {(() => {
                                         const taskAssignment =
@@ -93,6 +94,17 @@ export default async function TaskList({
                                             </Badge>
                                         );
                                     })()}
+                                </TableCell>
+                            )) || (
+                                <TableCell>
+                                    {
+                                        taskAssignments.filter(
+                                            (taskAssignment) =>
+                                                taskAssignment.taskId ===
+                                                    task.id &&
+                                                taskAssignment.grade === null
+                                        ).length
+                                    }
                                 </TableCell>
                             )}
                             <TableCell>

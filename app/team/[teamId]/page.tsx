@@ -9,6 +9,7 @@ import AddTask from "@/components/add-task";
 import { createTask } from "@/lib/task";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
+import db from "@/lib/db";
 
 export default async function Team({ params }: { params: { teamId: string } }) {
     const user = await getUser();
