@@ -16,6 +16,7 @@ import Link from "next/link";
 import { getTeam } from "@/lib/team";
 import db from "@/lib/db";
 import { Badge } from "./ui/badge";
+import TimeLeft from "./time-left";
 
 export default async function TaskList({
     tasks,
@@ -45,6 +46,7 @@ export default async function TaskList({
                     <TableHead>Title</TableHead>
                     <TableHead>Desc</TableHead>
                     <TableHead>Due Date</TableHead>
+                    <TableHead>Time left</TableHead>
                     {(user?.id !== team?.managerId && (
                         <TableHead>Grade</TableHead>
                     )) || <TableHead>Awaiting grading</TableHead>}
@@ -61,6 +63,9 @@ export default async function TaskList({
                                 {task.dueDate
                                     ? format(task.dueDate, "PPP")
                                     : ""}
+                            </TableCell>
+                            <TableCell>
+                                <TimeLeft dueDate={task.dueDate} />
                             </TableCell>
                             {(user?.id !== team?.managerId && (
                                 <TableCell>
