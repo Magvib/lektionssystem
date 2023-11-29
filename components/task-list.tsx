@@ -64,7 +64,7 @@ export default async function TaskList({
                                     ? format(task.dueDate, "PPP")
                                     : ""}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className="w-1/6">
                                 <TimeLeft dueDate={task.dueDate} />
                             </TableCell>
                             {(user?.id !== team?.managerId && (
