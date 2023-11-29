@@ -72,6 +72,18 @@ export async function deleteTaskAssignment(formData: FormData) {
         return;
     }
 
+    // Return is task due date is passed
+    const task = await prisma.task.findUnique({
+        where: {
+            id: taskId,
+        },
+    });
+
+    if (task?.dueDate && task.dueDate < new Date()) {
+        revalidatePath("/team/" + teamId + "/task/" + taskId);
+        return;
+    }
+
     // Delete task assignment
     await prisma.taskAssignment.delete({
         where: {
