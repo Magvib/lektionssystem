@@ -21,18 +21,20 @@ export default async function Nav() {
     return (
         <div className="container mx-auto pt-10">
             <Card className="flex items-center justify-between space-x-4 lg:space-x-6 h-16 px-4">
-                <div className="flex items-center space-x-4">
-                    <Image
-                        src={await getAvatar()}
-                        width={32}
-                        height={32}
-                        alt={user?.username ?? ""}
-                        className="rounded-full"
-                    />
-                    <span>
-                        <b>{user.username}</b> ({user.role.name})
-                    </span>
-                </div>
+                <Link href="/profile">
+                    <div className="flex items-center space-x-4">
+                        <Image
+                            src={await getAvatar()}
+                            width={32}
+                            height={32}
+                            alt={user?.username ?? ""}
+                            className="rounded-full"
+                        />
+                        <span>
+                            <b>{user.username}</b> ({user.role.name})
+                        </span>
+                    </div>
+                </Link>
                 <div className="flex items-center space-x-4">
                     <Link href="/">Dashboard</Link>
                     <form action={logout}>
