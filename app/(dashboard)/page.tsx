@@ -15,16 +15,18 @@ export default async function Home() {
     var teacherTeams = <></>;
     if (user?.role.name === "Teacher") {
         teacherTeams = (
-            <div>
-                <h1 className="text-2xl">Add team</h1>
-                <AddTeam createTeam={createTeam} />
-                <Separator orientation="horizontal" className="my-5" />
-                <h1 className="text-2xl mt-4">Owned Teams</h1>
-                <Suspense fallback={<Skeleton className="h-24 w-full" />}>
-                    <TeacherTeams deleteTeam={deleteTeam} />
-                </Suspense>
-                <Separator orientation="horizontal" className="my-5" />
-            </div>
+            <>
+                <div>
+                    <h1 className="text-2xl">Add team</h1>
+                    <AddTeam createTeam={createTeam} />
+                </div>
+                <div>
+                    <h1 className="text-2xl mt-4">Owned Teams</h1>
+                    <Suspense fallback={<Skeleton className="h-24 w-full" />}>
+                        <TeacherTeams deleteTeam={deleteTeam} />
+                    </Suspense>
+                </div>
+            </>
         );
     }
 
@@ -37,11 +39,13 @@ export default async function Home() {
                 </>
             }
         >
-            {teacherTeams}
-            <h1 className="text-2xl">Teams</h1>
-            <Suspense fallback={<Skeleton className="h-24 w-full" />}>
-                <StudentTeams />
-            </Suspense>
+            <div className="space-y-8">
+                {teacherTeams}
+                <h1 className="text-2xl">Teams</h1>
+                <Suspense fallback={<Skeleton className="h-24 w-full" />}>
+                    <StudentTeams />
+                </Suspense>
+            </div>
         </Body>
     );
 }

@@ -13,10 +13,10 @@ import {
 import db from "@/lib/db";
 import AddTaskAssignment from "@/components/add-task-assignment";
 import { Badge } from "@/components/ui/badge";
+import TimeLeft from "@/components/time-left";
 import UpdateTask from "@/components/update-task";
 import AssignmentList from "@/components/assignment-list";
-import { Task } from "@/components/Task";
-import { UpdateTaskAssignment } from "@/components/update-task-assignment";
+import { format } from "date-fns";
 
 export default async function page({
     params,
@@ -78,7 +78,22 @@ export default async function page({
             }
         >
             <div className="space-y-8">
-                <Task task={task} />
+                <div className="p-5 bg-secondary rounded shadow-md">
+                    <h1 className="text-xl text-gray-200">{task?.title}</h1>
+                    <p className="text-gray-400">{task?.description}</p>
+                    <div className="mt-5">
+                        <h2 className="text-xl text-gray-200">Time left</h2>
+                        <span className="text-lg text-gray-500">
+                            <TimeLeft dueDate={task.dueDate} />
+                        </span>
+                    </div>
+                    <div className="mt-5">
+                        <h1 className="text-xl">Due date</h1>
+                        <span className="text-gray-200">
+                            {format(dueDate, "PPP")}
+                        </span>
+                    </div>
+                </div>
 
                 {isManager && (
                     <div>
@@ -104,13 +119,47 @@ export default async function page({
                     <div>
                         <h2 className="text-xl mt-4">Assignment</h2>
                         {taskAssignment ? (
-                            <UpdateTaskAssignment
-                                allowRollback={diff > 0}
-                                deleteTaskAssignment={deleteTaskAssignment}
-                                teamId={team?.id.toString()}
-                                taskId={task?.id.toString()}
-                                taskAssignment={taskAssignment}
-                            />
+                            <div>
+                                <p>Submission: {taskAssignment.submission}</p>
+                                <div>
+                                    Grade:{" "}
+                                    {taskAssignment.grade ? (
+                                        <Badge variant="default">
+                                            {taskAssignment.grade}
+                                        </Badge>
+                                    ) : (
+                                        <Badge variant="secondary">
+                                            Awaiting grade
+                                        </Badge>
+                                    )}
+                                </div>
+                                {diff > 0 && !taskAssignment.grade && (
+                                    <form action={deleteTaskAssignment}>
+                                        <input
+                                            type="hidden"
+                                            name="taskAssignment"
+                                            value={taskAssignment.id}
+                                        />
+                                        <input
+                                            type="hidden"
+                                            name="teamId"
+                                            value={team?.id}
+                                        />
+                                        <input
+                                            type="hidden"
+                                            name="taskId"
+                                            value={task?.id}
+                                        />
+                                        <Button
+                                            variant="destructive"
+                                            type="submit"
+                                            className="mt-4"
+                                        >
+                                            Rolback
+                                        </Button>
+                                    </form>
+                                )}
+                            </div>
                         ) : (
                             <div>
                                 {(diff > 0 && (

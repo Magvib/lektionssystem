@@ -52,9 +52,7 @@ export default function AssignmentList({
                                         {taskAssignment.grade}
                                     </Badge>
                                 ) : (
-                                    <Badge variant="secondary">
-                                        Awaiting grade
-                                    </Badge>
+                                    <Badge variant="secondary">Pending</Badge>
                                 )}
                             </TableCell>
                             <TableCell>

@@ -12,15 +12,17 @@ export default function Body({
     description,
     footer,
     children,
+    ...props
 }: {
     title?: any;
     description?: any;
     footer?: any;
     children?: any;
+    [x: string]: any;
 }) {
     return (
         <div className="container mx-auto pt-10">
-            <Card>
+            <Card {...props}>
                 <CardHeader>
                     <CardTitle>{title}</CardTitle>
                     <CardDescription>{description}</CardDescription>

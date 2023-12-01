@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import React from "react";
+import { Textarea } from "./ui/textarea";
 
 export default function AddTaskAssignment({
     createTaskAssignment,
@@ -39,9 +40,9 @@ export default function AddTaskAssignment({
             <div className="flex justify-between gap-5 mt-2">
                 <input type="hidden" name="teamId" value={teamId} />
                 <input type="hidden" name="taskId" value={taskId} />
-                <Input
+                <Textarea
                     name="submission"
-                    placeholder="Assignment description or link"
+                    placeholder="Type your assignment here."
                 />
                 <Button variant="default" type="submit">
                     Upload

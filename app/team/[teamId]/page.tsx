@@ -33,31 +33,39 @@ export default async function Team({ params }: { params: { teamId: string } }) {
                 </>
             }
         >
-            {isManager && (
-                <>
-                    <h1 className="text-2xl">Rename team</h1>
-                    <UpdateTeam teamId={team?.id} />
-                    <h1 className="text-2xl mt-4">Add member</h1>
-                    <AddMember teamId={team?.id} />
-                    <Separator orientation="horizontal" className="my-5" />
-                </>
-            )}
+            <div className="space-y-8">
+                {isManager && (
+                    <>
+                        <div>
+                            <h1 className="text-2xl">Rename team</h1>
+                            <UpdateTeam teamId={team?.id} />
+                        </div>
+                        <div>
+                            <h1 className="text-2xl mt-4">Add member</h1>
+                            <AddMember teamId={team?.id} />
+                        </div>
+                    </>
+                )}
 
-            <h1 className="text-2xl">Members</h1>
-            <MemberList
-                teamId={team?.id}
-                members={team?.members || []}
-                isManager={isManager}
-            />
-            {isManager && (
-                <>
-                    <h1 className="text-2xl">Add task</h1>
-                    <AddTask addTask={createTask} teamId={team?.id} />
-                    <Separator orientation="horizontal" className="my-5" />
-                </>
-            )}
-            <h1 className="text-2xl mt-5">Tasks</h1>
-            <TaskList teamId={team?.id} tasks={team?.tasks || []} />
+                <div>
+                    <h1 className="text-2xl">Members</h1>
+                    <MemberList
+                        teamId={team?.id}
+                        members={team?.members || []}
+                        isManager={isManager}
+                    />
+                </div>
+                {isManager && (
+                    <div>
+                        <h1 className="text-2xl">Add task</h1>
+                        <AddTask addTask={createTask} teamId={team?.id} />
+                    </div>
+                )}
+                <div>
+                    <h1 className="text-2xl mt-5">Tasks</h1>
+                    <TaskList teamId={team?.id} tasks={team?.tasks || []} />
+                </div>
+            </div>
         </Body>
     );
 }
