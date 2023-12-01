@@ -18,6 +18,7 @@ export default async function Home() {
             <div>
                 <h1 className="text-2xl">Add team</h1>
                 <AddTeam createTeam={createTeam} />
+                <Separator orientation="horizontal" className="my-5" />
                 <h1 className="text-2xl mt-4">Owned Teams</h1>
                 <Suspense fallback={<Skeleton className="h-24 w-full" />}>
                     <TeacherTeams deleteTeam={deleteTeam} />
