@@ -150,7 +150,9 @@ export default async function TaskList({
                     ))
                 ) : (
                     <TableRow>
-                        <TableCell>No results.</TableCell>
+                        <TableCell colSpan={6} className="text-center">
+                            No results.
+                        </TableCell>
                     </TableRow>
                 )}
             </TableBody>

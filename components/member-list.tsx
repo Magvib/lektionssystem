@@ -94,7 +94,9 @@ export default async function MemberList({
                     ))
                 ) : (
                     <TableRow>
-                        <TableCell>No results.</TableCell>
+                        <TableCell colSpan={3} className="text-center">
+                            No members
+                        </TableCell>
                     </TableRow>
                 )}
             </TableBody>

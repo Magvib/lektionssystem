@@ -61,7 +61,7 @@ export default async function StudentTeams() {
                         </TableRow>
                     ))) || (
                     <TableRow>
-                        <TableCell colSpan={4} className="text-center">
+                        <TableCell colSpan={5} className="text-center">
                             You are not a member of any team
                         </TableCell>
                     </TableRow>
