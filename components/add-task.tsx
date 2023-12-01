@@ -23,6 +23,8 @@ export default function AddTask({
 }) {
     const { toast } = useToast();
     const [date, setDate] = React.useState<Date>();
+    const [name, setName] = React.useState<string>("");
+    const [description, setDescription] = React.useState<string>("");
 
     async function clientAction(formData: FormData) {
         // Add teamId to formData
@@ -51,15 +53,20 @@ export default function AddTask({
             'input[name="description"]'
         );
 
-        name.value = "";
-        description.value = "";
+        setName("");
+        setDescription("");
         setDate(undefined);
     }
 
     return (
         <form action={clientAction}>
             <div className="flex justify-between gap-5 mt-2">
-                <Input name="name" placeholder="Task name" />
+                <Input
+                    name="name"
+                    placeholder="Task name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button
@@ -84,7 +91,12 @@ export default function AddTask({
                 </Popover>
             </div>
             <div className="flex justify-between gap-5 mt-2">
-                <Input name="description" placeholder="Task description" />
+                <Input
+                    name="description"
+                    placeholder="Task description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
                 <Button variant="default" type="submit">
                     Add
                 </Button>

@@ -3,7 +3,6 @@ import TeacherTeams from "@/components/manager-team-list";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import StudentTeams from "@/components/member-team-list";
-import { Separator } from "@/components/ui/separator";
 import Body from "@/components/body";
 import AddTeam from "@/components/add-team";
 import { createTeam, deleteTeam } from "@/lib/team";
