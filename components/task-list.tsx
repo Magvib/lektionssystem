@@ -80,7 +80,7 @@ export default async function TaskList({
                                         if (!taskAssignment) {
                                             return (
                                                 <Badge variant="outline">
-                                                    Not graded
+                                                    Pending
                                                 </Badge>
                                             );
                                         }
