@@ -41,10 +41,12 @@ export default async function Home() {
         >
             <div className="space-y-8">
                 {teacherTeams}
-                <h1 className="text-2xl">Teams</h1>
-                <Suspense fallback={<Skeleton className="h-24 w-full" />}>
-                    <StudentTeams />
-                </Suspense>
+                <div>
+                    <h1 className="text-2xl">Teams</h1>
+                    <Suspense fallback={<Skeleton className="h-24 w-full" />}>
+                        <StudentTeams />
+                    </Suspense>
+                </div>
             </div>
         </Body>
     );
