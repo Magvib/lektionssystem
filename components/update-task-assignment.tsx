@@ -19,12 +19,6 @@ export function UpdateTaskAssignment({
     taskId: string;
     allowRollback: boolean;
 }) {
-    // Make a last checked state
-    const [lastChecked, setLastChecked] = useState(new Date());
-
-    // Make a last checked string state
-    const [lastCheckedString, setLastCheckedString] = useState("");
-
     // Make a pooling to check if the task has been graded
     useEffect(() => {
         const interval = setInterval(async () => {
@@ -36,9 +30,6 @@ export function UpdateTaskAssignment({
                 gradeUrl
             ).then((res) => res.json());
 
-            // Set last checked
-            setLastChecked(new Date());
-
             // If grade is not null then reload the page
             if (taskAssignmentJson.grade != taskAssignment.grade) {
                 location.reload();
@@ -47,27 +38,6 @@ export function UpdateTaskAssignment({
 
         return () => clearInterval(interval);
     }, []);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const diff = now - lastChecked.getTime();
-            const diffSeconds = Math.floor(diff / 1000);
-            setLastCheckedString(
-                diffSeconds < 0
-                    ? "Just now"
-                    : diffSeconds < 60
-                    ? diffSeconds + " seconds ago"
-                    : diffSeconds < 3600
-                    ? Math.floor(diffSeconds / 60) + " minutes ago"
-                    : diffSeconds < 86400
-                    ? Math.floor(diffSeconds / 3600) + " hours ago"
-                    : Math.floor(diffSeconds / 86400) + " days ago"
-            );
-        }, 100);
-
-        return () => clearInterval(interval);
-    }, [lastChecked]);
 
     return (
         <div>
@@ -79,10 +49,6 @@ export function UpdateTaskAssignment({
                 ) : (
                     <Badge variant="secondary">Pending</Badge>
                 )}
-            </div>
-            <div>
-                Last checked:{" "}
-                <span className="font-bold">{lastCheckedString}</span>
             </div>
             {allowRollback && !taskAssignment.grade && (
                 <form action={deleteTaskAssignment}>
