@@ -125,7 +125,9 @@ export default function AssignmentList({
                     ))
                 ) : (
                     <TableRow>
-                        <TableCell>No results.</TableCell>
+                        <TableCell colSpan={4} className="text-center">
+                            No results.
+                        </TableCell>
                     </TableRow>
                 )}
             </TableBody>
