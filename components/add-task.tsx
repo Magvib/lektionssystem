@@ -47,12 +47,6 @@ export default function AddTask({
             });
         }
 
-        // Clear the form
-        var name: any = document.querySelector('input[name="name"]');
-        var description: any = document.querySelector(
-            'input[name="description"]'
-        );
-
         setName("");
         setDescription("");
         setDate(undefined);
