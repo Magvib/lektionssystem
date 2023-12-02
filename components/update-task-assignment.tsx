@@ -36,7 +36,7 @@ export function UpdateTaskAssignment({
         }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [taskAssignment.grade]);
 
     return (
         <div>

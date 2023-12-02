@@ -1,5 +1,5 @@
-# Choose the Node.js 14 LTS as base image
-FROM node:lts-alpine
+# Choose the Node.js base image
+FROM node:20.9.0
 
 # Set the working directory
 WORKDIR /app
@@ -12,6 +12,9 @@ RUN npm install
 
 # Copy the rest of your app's source code
 COPY . .
+
+# Prisma
+RUN npx prisma generate
 
 # Build the Next.js app
 RUN npm run build

@@ -1,15 +1,14 @@
 import MemberList from "@/components/member-list";
 import TaskList from "../../../components/task-list";
 import AddMember from "@/components/add-member";
-import { Team } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/user";
-import { Separator } from "@/components/ui/separator";
 import AddTask from "@/components/add-task";
 import { createTask } from "@/lib/task";
 import Body from "@/components/body";
 import { getTeam } from "@/lib/team";
 import UpdateTeam from "@/components/update-team";
+import { User } from "@prisma/client";
 
 export default async function Team({ params }: { params: { teamId: string } }) {
     const user = await getUser();
@@ -18,7 +17,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
 
     if (
         !team ||
-        (!team.members.find((member) => member.id === user?.id) &&
+        (!team.members.find((member: User) => member.id === user?.id) &&
             team.manager.id !== user?.id)
     ) {
         redirect("/");
