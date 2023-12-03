@@ -7,8 +7,8 @@ import Nav from "@/components/nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Lektionssystem",
-    description: "MBN Lektionssystem",
+    title: process.env.APP_NAME || "Lektionssystem",
+    description: process.env.APP_DESCRIPTION || "Made by students for students",
 };
 
 export default function RootLayout({
