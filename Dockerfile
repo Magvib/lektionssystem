@@ -1,5 +1,5 @@
 # Choose the Node.js base image
-FROM node:20.9.0
+FROM --platform=linux/amd64 node:20.9.0
 
 # Set the working directory
 WORKDIR /app
