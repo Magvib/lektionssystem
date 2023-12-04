@@ -66,7 +66,7 @@ export default async function GradeList() {
                     ))) || (
                     <TableRow>
                         <TableCell colSpan={5} className="text-center">
-                            No teams found
+                            No grades found
                         </TableCell>
                     </TableRow>
                 )}
