@@ -7,6 +7,7 @@ import Image from "next/image";
 
 export default async function Nav() {
     const user = await getUser();
+    const isTeacher = user?.role.name === "Teacher";
 
     if (!user) {
         return (
@@ -37,9 +38,15 @@ export default async function Nav() {
                 </Link>
                 <div className="flex items-center space-x-4">
                     <Link href="/">Dashboard</Link>
-                    <Link href="/grades">
-                        <Button variant={"secondary"}>Grades</Button>
-                    </Link>
+                    {isTeacher ? (
+                        <Link href="/admin">
+                            <Button variant={"secondary"}>Admin</Button>
+                        </Link>
+                    ) : (
+                        <Link href="/grades">
+                            <Button variant={"secondary"}>Grades</Button>
+                        </Link>
+                    )}
                     <form action={logout}>
                         <Button variant={"destructive"}>Logout</Button>
                     </form>
