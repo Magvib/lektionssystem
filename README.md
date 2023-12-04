@@ -13,7 +13,7 @@ Dette open source projekt er et alternativ til traditionelle lektionssystemer so
 
 -   **Frontend**: NextJs
 -   **Backend**: Prisma
--   **Database**: SQLite
+-   **Database**: SQLite (udvikling), MySql (produktion)
 -   **Deployment**: Docker
 
 ## Projekt Opsætning
@@ -36,13 +36,22 @@ Dette open source projekt er et alternativ til traditionelle lektionssystemer so
     npm install
     ```
 
-4. **Starte Projektet Lokalt**
+4. **Seed database**
+
+    1. Hvis du vil køre projektet lokalt, skal du først omdøbe filen `.env.example` til `.env` og derefter udfylde de nødvendige felter.
+    2. Hvis du ikke har en mysql database, kan du bruge sqlite i stedet. For at gøre dette skal du ind i `prisma/schema.prisma` og ændre `provider` til `sqlite`.
+
+    ```
+    npx prisma db push && npx prisma db seed
+    ```
+
+5. **Starte Projektet Lokalt**
 
     ```
     npm run dev
     ```
 
-5. **Bygge og Køre med Docker**
+6. **Bygge og Køre med Docker**
    For at bygge og køre projektet ved hjælp af Docker, følg disse trin:
 
 -   Byg Docker Image:
