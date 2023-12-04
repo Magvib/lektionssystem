@@ -21,7 +21,7 @@ export default function Body({
     [x: string]: any;
 }) {
     return (
-        <div className="container mx-auto pt-10">
+        <div className="container mx-auto py-10">
             <Card {...props}>
                 <CardHeader>
                     <CardTitle>{title}</CardTitle>
