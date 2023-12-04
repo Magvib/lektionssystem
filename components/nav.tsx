@@ -37,6 +37,9 @@ export default async function Nav() {
                 </Link>
                 <div className="flex items-center space-x-4">
                     <Link href="/">Dashboard</Link>
+                    <Link href="/grades">
+                        <Button variant={"secondary"}>Grades</Button>
+                    </Link>
                     <form action={logout}>
                         <Button variant={"destructive"}>Logout</Button>
                     </form>
