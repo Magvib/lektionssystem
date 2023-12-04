@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lektionssystem
 
-## Getting Started
+Dette open source projekt er et alternativ til traditionelle lektionssystemer som Lectio.dk. Det er designet til at forbedre interaktionen mellem lærere og elever gennem en brugervenlig, webbaseret platform.
 
-First, run the development server:
+## Funktioner
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   **Sikker Brugerlogning**: Separat log ind for lærere og elever.
+-   **Elev Dashboard**: Elever kan se karakterer, skemaer og profiloplysninger.
+-   **Lærer Dashboard**: Oprettelse af hold, tildeling af opgaver og karaktergivning.
+-   **Opgavehåndtering**: Elever kan aflevere opgaver online, og lærere kan give feedback og karakterer.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Teknologi
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Frontend**: NextJs
+-   **Backend**: Prisma
+-   **Database**: SQLite
+-   **Deployment**: Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Projekt Opsætning
 
-## Learn More
+1. **Klon Repositoriet**
+   git clone [URL til dit repository]
 
-To learn more about Next.js, take a look at the following resources:
+2. **Installer Dependencies**
+   npm install
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Starte Projektet Lokalt**
+   npm run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. **Bygge og Køre med Docker**
+   For at bygge og køre projektet ved hjælp af Docker, følg disse trin:
 
-## Deploy on Vercel
+-   Byg Docker Image:
+    ```
+    docker build -t lektionssystem .
+    ```
+-   Kør Containeren:
+    ```
+    docker run -p 3000:3000 lektionssystem
+    ```
+    Herefter er applikationen tilgængelig på `localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licens
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Dette projekt er udgivet under [Specifik licens], hvilket betyder at det kan bruges og modificeres frit efter givne betingelser.
+
+---
+
+© Magnus Bjørn Nielsen, 2023. Alle rettigheder forbeholdes.
