@@ -19,15 +19,30 @@ Dette open source projekt er et alternativ til traditionelle lektionssystemer so
 ## Projekt Opsætning
 
 1. **Klon Repositoriet**
-   git clone [URL til dit repository]
 
-2. **Installer Dependencies**
-   npm install
+    ```
+    git clone https://github.com/Magvib/lektionssystem
+    ```
 
-3. **Starte Projektet Lokalt**
-   npm run dev
+2. change directory to the project folder
 
-4. **Bygge og Køre med Docker**
+    ```
+    cd lektionssystem
+    ```
+
+3. **Installer Dependencies**
+
+    ```
+    npm install
+    ```
+
+4. **Starte Projektet Lokalt**
+
+    ```
+    npm run dev
+    ```
+
+5. **Bygge og Køre med Docker**
    For at bygge og køre projektet ved hjælp af Docker, følg disse trin:
 
 -   Byg Docker Image:
@@ -42,8 +57,8 @@ Dette open source projekt er et alternativ til traditionelle lektionssystemer so
 
 ## Licens
 
-Dette projekt er udgivet under [Specifik licens], hvilket betyder at det kan bruges og modificeres frit efter givne betingelser.
+Dette projekt er udgivet under [MIT licens](https://opensource.org/licenses/MIT), hvilket betyder at det kan bruges og modificeres frit efter givne betingelser.
 
 ---
 
-© Magnus Bjørn Nielsen, 2023. Alle rettigheder forbeholdes.
+© Magnus Bjørn Nielsen, 2023.
