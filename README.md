@@ -4,7 +4,7 @@ Dette open source projekt er et alternativ til traditionelle lektionssystemer so
 
 ## Funktioner
 
--   **Sikker Brugerlogning**: Separat log ind for lærere og elever.
+-   **Sikker Brugerlogning**: Log ind for lærere og elever.
 -   **Elev Dashboard**: Elever kan se karakterer, skemaer og profiloplysninger.
 -   **Lærer Dashboard**: Oprettelse af hold, tildeling af opgaver og karaktergivning.
 -   **Opgavehåndtering**: Elever kan aflevere opgaver online, og lærere kan give feedback og karakterer.
