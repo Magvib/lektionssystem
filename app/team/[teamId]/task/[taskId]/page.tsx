@@ -12,7 +12,6 @@ import {
 } from "@/lib/task";
 import db from "@/lib/db";
 import AddTaskAssignment from "@/components/add-task-assignment";
-import { Badge } from "@/components/ui/badge";
 import UpdateTask from "@/components/update-task";
 import AssignmentList from "@/components/assignment-list";
 import { Task } from "@/components/Task";
