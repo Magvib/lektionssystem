@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 
 export default async function Nav() {
-    const user = await getUser();
+    const user = await getUser(true);
     const isTeacher = user?.role.name === "Teacher";
 
     if (!user) {

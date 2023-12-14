@@ -5,6 +5,7 @@ import prisma from "./db";
 import bcrypt from "bcrypt";
 import z from "zod";
 import { revalidatePath } from "next/cache";
+import jwt from "jsonwebtoken";
 
 export async function updateProfile(formData: FormData) {
     "use server";
@@ -159,17 +160,46 @@ export async function checkCredentials(username: string, password: string) {
 
     // Check if password is correct with bcrypt.compareSync
     if (user && bcrypt.compareSync(password, user.password || "")) {
-        return user.id;
+        const token = jwt.sign(
+            {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+            },
+            process.env.PRIVATE_KEY || "",
+            {
+                expiresIn: "1d",
+            }
+        );
+        return token;
     }
 
     return false;
 }
 
-export async function getUser() {
+export async function getUser(bypassJwtCheck?: boolean) {
     const user = cookies().get("user");
 
     if (user) {
-        const userId = parseInt(user.value, 10);
+        // Check jwt token
+        try {
+            jwt.verify(user.value, process.env.PRIVATE_KEY || "");
+        } catch {
+            if (!bypassJwtCheck) {
+                redirect("/login");
+            }
+
+            return null;
+        }
+
+        const token = jwt.verify(user.value, process.env.PRIVATE_KEY || "");
+
+        // Check if token is valid
+        if (!token) {
+            return null;
+        }
+
+        const userId = (token as any).id;
 
         if (!isNaN(userId)) {
             return await prisma.user.findUnique({

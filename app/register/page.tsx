@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import RegisterForm from "@/components/register-form";
 import prisma from "@/lib/db";
+import jwt from "jsonwebtoken";
 
 export default async function Register() {
     async function postRegister(formData: FormData) {
@@ -56,8 +57,20 @@ export default async function Register() {
             },
         });
 
+        const token = jwt.sign(
+            {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+            },
+            process.env.PRIVATE_KEY as string,
+            {
+                expiresIn: "1d",
+            }
+        );
+
         // Login success
-        cookies().set("user", user.id.toString());
+        cookies().set("user", token);
         redirect("/");
     }
 
